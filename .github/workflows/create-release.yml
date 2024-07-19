@@ -19,7 +19,7 @@ jobs:
 
       - name: Zip subfolder
         run: |
-          subfolder="path/to/subfolder"  # Adjust to your subfolder
+          subfolder="./404_threegen"  # Adjust to your subfolder
           tag="${{ steps.vars.outputs.tag }}"
           zip_name="${subfolder##*/}-${tag}.zip"
           cd "$subfolder"
