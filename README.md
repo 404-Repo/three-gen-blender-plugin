@@ -15,14 +15,14 @@
 ### Software requirements
 Blender 4.0+  
 ### Instructions
-1️⃣ Download the ZIP file of the most recent release and **_do not unzip_**  
+1. Download the ZIP file of the most recent release and **_do not unzip_**  
 
-2️⃣ In Blender, Edit ➡️ Preferences ➡️ Add-ons ➡️ Install ➡️ Select the add-on ZIP file
+2. In Blender, Edit ➡️ Preferences ➡️ Add-ons ➡️ Install ➡️ Select the add-on ZIP file
 
 > [!NOTE]
 > If you have a previous version of this add-on enabled, you will need to disable it and restart Blender before installing the new version
 
-3️⃣ Check the box to enable the add-on and paste your API key in the token field.
+3. Check the box to enable the add-on and paste your API key in the token field.
 
 <img width="400" alt="addon-enable" src="https://github.com/user-attachments/assets/1da2428a-bab4-42d8-991d-1561a253fe55">
 
@@ -32,11 +32,15 @@ Blender 4.0+
 
 ## Usage
 ### Generating
-Type your prompt and click Generate. Each generation should take **20 to 30 seconds**.
+1. Type your prompt and click Generate. Each generation should take **20 to 30 seconds**.
 > [!NOTE]
 >- If the network is busy, the operation will automatically be canceled after 1 minute. Try again.
 >- For best results, describe a single object/element for each generation, rather than an entire scene or room at once.
 >- To view the material in object or edit mode, open the Shading Menu (shortcut z) and select Material Preview (shortcut 2).
+
+2. Adjust display settings if needed.
+After the splat is generated, the Display Settings dropdown will appear. Gaussian Splats are often rendered with some zero or low opacity points. Increasing the opacity threshold will filter out any points beneath the set threshold.
+<img width="400" alt="addon-settings" src="https://github.com/user-attachments/assets/37307d7e-81d9-40d9-b85e-d3fc92cd7f40">
 
 ### Mesh Conversion
 The generated object is rendered as a .ply, however the add-on creates a Geometry Node Modifier to easily convert to mesh.
