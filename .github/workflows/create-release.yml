@@ -27,7 +27,7 @@ jobs:
           zip_name="${subfolder##*/}-${tag}.zip"
           echo "ZIP_NAME=$zip_name" >> $GITHUB_ENV
           cd "$subfolder"
-          zip -r "../$zip_name" .
+          zip -r "$zip_name" subfolder
         shell: bash
 
       - name: Create GitHub Release
