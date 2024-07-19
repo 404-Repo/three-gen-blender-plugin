@@ -1,0 +1,51 @@
+name: Create Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set Variables
+        id: vars
+        run: echo "::set-output name=tag::${GITHUB_REF##*/}"
+
+      - name: Zip subfolder
+        run: |
+          subfolder="path/to/subfolder"  # Adjust to your subfolder
+          tag="${{ steps.vars.outputs.tag }}"
+          zip_name="${subfolder##*/}-${tag}.zip"
+          cd "$subfolder"
+          zip -r "../$zip_name" .
+        shell: bash
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          release_name: Release ${{ steps.vars.outputs.tag }}
+          body: |
+            Changes in this release:
+            - Description of changes
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "path/to/${{ steps.vars.outputs.tag }}.zip"  # Adjust this to your zip file location
+          asset_name: "${{ steps.vars.outputs.tag }}.zip"
+          asset_content_type: application/zip
