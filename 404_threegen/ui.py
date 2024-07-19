@@ -17,7 +17,7 @@ class GenerateOperator(Operator):
         model_filepath = request_model(threegen.prompt)
 
         if not model_filepath:
-            return {"CANCELED"}
+            return {"CANCELLED"}
 
         name = re.sub(r"\s+", "_", threegen.prompt)
         import_gs(model_filepath, name)
@@ -41,9 +41,36 @@ class MainPanel(Panel):
         row.operator(GenerateOperator.bl_idname)
 
 
+class DisplaySettingsPanel(Panel):
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "404"
+    bl_idname = "Threegen_PT_settings"
+    bl_label = "Splat Display Settings"
+
+    @classmethod
+    def poll(cls, context):
+        obj = context.object
+        return obj is not None and "Gaussian Splatting" in obj.modifiers
+
+    def draw(self, context: Context):
+        layout = self.layout
+        obj = context.active_object
+
+        row = layout.row()
+        row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_4"]', text="Render as point cloud (Cycles only)")
+
+        row = layout.row()
+        row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_2"]', text="Opacity Threshold")
+
+        row = layout.row()
+        row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_3"]', text="Display Percentage")
+
+
 classes = (
     GenerateOperator,
     MainPanel,
+    DisplaySettingsPanel,
 )
 
 

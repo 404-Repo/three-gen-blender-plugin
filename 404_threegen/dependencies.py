@@ -1,15 +1,19 @@
 import subprocess
-
 import sys
 
 
-DEPENDENCIES = ("numpy", "requests")
+DEPENDENCIES = (
+    "numpy",
+    "pydantic",
+    "websocket-client",
+)
 
 
 def installed() -> bool:
     try:
         import numpy
-        import requests
+        import pydantic
+        import websocket
 
         return True
     except:
@@ -17,7 +21,6 @@ def installed() -> bool:
 
 
 def install() -> None:
-    # upgrade pip
     python_exe = sys.executable
     subprocess.check_output([python_exe, "-m", "ensurepip"])
     subprocess.check_output([python_exe, "-m", "pip", "install", "--upgrade", "pip"])

@@ -16,13 +16,15 @@ class DependencyInstallationOperator(bpy.types.Operator):
 
 class ThreegenPreferences(AddonPreferences):
     bl_idname = __name__.partition(".")[0]
-    url: StringProperty()
+    url: StringProperty(default="wss://1qshev6dbe7gdz-8888.proxy.runpod.net/ws/generate/")
+    token: StringProperty()
 
     def draw(self, context: Context):
         layout: UILayout = self.layout
         col = layout.column()
         if dependencies.installed():
             col.prop(self, "url")
+            col.prop(self, "token")
         else:
             col.operator(DependencyInstallationOperator.bl_idname)
 
