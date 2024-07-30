@@ -8,13 +8,14 @@ import websocket
 from .protocol import Auth, PromptData, TaskStatus, TaskUpdate
 
 
-def request_model(prompt: str) -> None | str:
+def request_model(prompt: str) -> tuple[None, None] | tuple[str, str]:
     url = bpy.context.preferences.addons[__name__.partition(".")[0]].preferences.url
     api_key = bpy.context.preferences.addons[__name__.partition(".")[0]].preferences.token
     filepath = None
+    winner_hotkey = None
 
     def on_message(ws, message):
-        nonlocal filepath
+        nonlocal filepath, winner_hotkey
         update = TaskUpdate(**json.loads(message))
         if update.status == TaskStatus.STARTED:
             print("Task started")
@@ -29,6 +30,7 @@ def request_model(prompt: str) -> None | str:
             print(f"Stats: {update.statistics}")
 
             if assets:
+                winner_hotkey = max(update.statistics.miners, key=lambda miner: miner.score).hotkey
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".ply") as temp_file:
                     temp_file.write(base64.b64decode(assets.encode("utf-8")))
                     filepath = temp_file.name
@@ -38,7 +40,7 @@ def request_model(prompt: str) -> None | str:
         print(f"WebSocket connection error: {error}")
 
     def on_close(ws, close_status_code, close_msg):
-        print("WebSocket connection closed")
+        print(f"WebSocket connection closed: {close_status_code} {close_msg}")
 
     def on_open(ws):
         auth_data = Auth(api_key=api_key).dict()
@@ -46,9 +48,8 @@ def request_model(prompt: str) -> None | str:
         ws.send(json.dumps(auth_data))
         ws.send(json.dumps(prompt_data))
 
-    # Initialize WebSocket connection
     ws = websocket.WebSocketApp(url, on_message=on_message, on_error=on_error, on_close=on_close)
     ws.on_open = on_open
     ws.run_forever()
 
-    return filepath
+    return (filepath, winner_hotkey)

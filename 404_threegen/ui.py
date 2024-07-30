@@ -14,13 +14,13 @@ class GenerateOperator(Operator):
 
     def execute(self, context: Context):
         threegen = context.window_manager.threegen
-        model_filepath = request_model(threegen.prompt)
+        model_filepath, winner_hotkey = request_model(threegen.prompt)
 
         if not model_filepath:
             return {"CANCELLED"}
 
         name = re.sub(r"\s+", "_", threegen.prompt)
-        import_gs(model_filepath, name)
+        import_gs(model_filepath, name, winner_hotkey)
 
         return {"FINISHED"}
 

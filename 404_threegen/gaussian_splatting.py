@@ -1,31 +1,27 @@
 import bpy
-import bmesh
 import mathutils
 import numpy as np
 import time
 import os
 
-from .plyfile import PlyData, PlyElement
+from .plyfile import PlyData
 
 RECOMMENDED_MAX_GAUSSIANS = 200_000
 
 
-def import_gs(filepath: str, name):
-    
-    
-    if "GaussianSplatting.003" not in bpy.data.node_groups:
+def import_gs(filepath: str, name: str, winner_hotkey: str = ""):
+
+    if "GaussianSplatting" not in bpy.data.node_groups:
         script_file = os.path.realpath(__file__)
         path = os.path.dirname(script_file)
         blendfile = os.path.join(path, "gs_nodetree.blend")
-        section   = "/NodeTree/"
-        object    = "GaussianSplatting"
+        section = "/NodeTree/"
+        object = "GaussianSplatting"
 
         directory = blendfile + section
-        filename  = object
+        filename = object
 
-        bpy.ops.wm.append(
-            filename=filename,
-            directory=directory)
+        bpy.ops.wm.append(filename=filename, directory=directory)
 
     start_time_0 = time.time()
     start_time = time.time()
@@ -47,7 +43,7 @@ def import_gs(filepath: str, name):
 
     N = len(xyz)
     print(f"ply data: {plydata.elements[0]}")
-    
+
     if "opacity" in plydata.elements[0]:
         log_opacities = np.asarray(plydata.elements[0]["opacity"])[..., np.newaxis]
         opacities = 1 / (1 + np.exp(-log_opacities))
@@ -142,7 +138,7 @@ def import_gs(filepath: str, name):
     obj.rotation_euler = (-np.pi / 2, 0, 0)
     obj.rotation_euler[0] = 1.5708
 
-    obj["gaussian_splatting"] = True
+    obj["Bittensor Miner"] = winner_hotkey
 
     print("Mesh attributes added in", time.time() - start_time, "seconds")
 
@@ -150,10 +146,9 @@ def import_gs(filepath: str, name):
 
     print("Total Processing time: ", time.time() - start_time_0)
 
+
 def setup_nodes(obj):
     start_time = time.time()
-    node_tree = bpy.data.node_groups["GaussianSplatting"]
     m = obj.modifiers.new(name="Gaussian Splatting", type="NODES")
-    m.node_group = node_tree
+    m.node_group = bpy.data.node_groups["GaussianSplatting"]
     print("Geometry nodes created in", time.time() - start_time, "seconds")
-
