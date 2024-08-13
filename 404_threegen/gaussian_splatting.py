@@ -51,19 +51,12 @@ def import_gs(filepath: str, name: str, winner_hotkey: str = ""):
         log_opacities = np.asarray(1)[..., np.newaxis]
         opacities = 1 / (1 + np.exp(-log_opacities))
 
-    features_dc = np.zeros((N, 3, 1))
-    features_dc[:, 0, 0] = np.asarray(plydata.elements[0]["f_dc_0"])
-    features_dc[:, 1, 0] = np.asarray(plydata.elements[0]["f_dc_1"])
-    features_dc[:, 2, 0] = np.asarray(plydata.elements[0]["f_dc_2"])
-
-    extra_f_names = [p.name for p in plydata.elements[0].properties if p.name.startswith("f_rest_")]
-    extra_f_names = sorted(extra_f_names, key=lambda x: int(x.split("_")[-1]))
-
-    if len(extra_f_names) > 0:
-        features_extra = np.zeros((N, len(extra_f_names)))
-        for idx, attr_name in enumerate(extra_f_names):
-            features_extra[:, idx] = np.asarray(plydata.elements[0][attr_name])
-        features_extra = features_extra.reshape((N, 3, 15))
+    gamma = 2.2
+    color = np.zeros((N, 3, 1))
+    color[:, 0, 0] = np.asarray(plydata.elements[0]["f_dc_0"])
+    color[:, 1, 0] = np.asarray(plydata.elements[0]["f_dc_1"])
+    color[:, 2, 0] = np.asarray(plydata.elements[0]["f_dc_2"])
+    color = color * 0.3 + 0.5  # ** gamma
 
     log_scales = np.stack(
         (
@@ -117,8 +110,8 @@ def import_gs(filepath: str, name: str, winner_hotkey: str = ""):
     logscale_attr = mesh.attributes.new(name="logscale", type="FLOAT_VECTOR", domain="POINT")
     logscale_attr.data.foreach_set("vector", log_scales.flatten())
 
-    sh0_attr = mesh.attributes.new(name="sh0", type="FLOAT_VECTOR", domain="POINT")
-    sh0_attr.data.foreach_set("vector", features_dc.flatten())
+    color_attr = mesh.attributes.new(name="color", type="FLOAT_VECTOR", domain="POINT")
+    color_attr.data.foreach_set("vector", color.flatten())
 
     rot_quatxyz_attr = mesh.attributes.new(name="quatxyz", type="FLOAT_VECTOR", domain="POINT")
     rot_quatxyz_attr.data.foreach_set("vector", quats[:, :3].flatten())

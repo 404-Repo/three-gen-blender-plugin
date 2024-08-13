@@ -67,10 +67,37 @@ class DisplaySettingsPanel(Panel):
         row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_3"]', text="Display Percentage")
 
 
+class ConversionPanel(Panel):
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "404"
+    bl_idname = "Threegen_PT_conversion"
+    bl_label = "Mesh Conversion"
+
+    @classmethod
+    def poll(cls, context):
+        obj = context.object
+        return obj is not None and "Gaussian Splatting" in obj.modifiers
+
+    def draw(self, context: Context):
+        layout = self.layout
+        obj = context.active_object
+
+        row = layout.row()
+        row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_5"]', text="Convert")
+
+        row = layout.row()
+        row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_6"]', text="Voxel Size")
+
+        row = layout.row()
+        row.prop(obj.modifiers["Gaussian Splatting"], '["Socket_7"]', text="Adaptivity")
+
+
 classes = (
     GenerateOperator,
     MainPanel,
     DisplaySettingsPanel,
+    ConversionPanel,
 )
 
 
