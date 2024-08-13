@@ -8,7 +8,7 @@ bl_info = {
     "description": "AI generated 3d Gaussian splatting",
     "location": "View3D > Toolshelf > GScatter",
     "author": "404",
-    "version": (0, 3, 0),
+    "version": (0, 4, 0),
     "blender": (4, 0, 0),
     "support": "COMMUNITY",
     "category": "Object",
