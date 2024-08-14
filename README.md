@@ -38,15 +38,15 @@ Blender 4.0+
 >- For best results, describe a single object/element for each generation, rather than an entire scene or room at once.
 >- To view the material in object or edit mode, open the Shading Menu (shortcut z) and select Material Preview (shortcut 2).
 
-2. Adjust display settings if needed.
+2. Adjust display settings *(optional)*
 After the splat is generated, the Display Settings dropdown will appear. Gaussian Splats are often rendered with some zero or low opacity points. Increasing the opacity threshold will filter out any points beneath the set threshold.
 <img width="400" alt="addon-settings" src="https://github.com/user-attachments/assets/37307d7e-81d9-40d9-b85e-d3fc92cd7f40">
 
-### Mesh Conversion
-The generated object is rendered as a .ply, however the add-on creates a Geometry Node Modifier to easily convert to mesh.
-Select Modifiers 🔧 in the Properties workspace and apply the GaussianSplatting modifier.
+3. Convert to mesh *(optional)*
+The Mesh Conversion dropdown is located beneath the Display Settings dropdown. Smaller voxel size will result in a more detailed mesh, while larger voxel size will result in a lower poly count.\
+Regardless of voxel size, there will be a loss of quality when converting to mesh. The visual detail produced by Gaussian Splatting is a result of layered points of varying opacity. By converting to mesh, this depth is lost as material can only be displayed on faces.
+<img width="400" alt="meshconversion" src="https://github.com/user-attachments/assets/19e5bd60-d205-4fb5-aff0-4531395b0c9f">
 
-<img width="400" alt="addon-modifier" src="https://github.com/user-attachments/assets/a4472b0f-ad29-4410-bfe0-252336309986">
 
 > [!NOTE]
-> The mesh will be quite heavy. We will update this guide to include some techniques to reduce the size of the mesh while retaining as much visual detail as possible. In the meantime, you can join our [Discord server](https://discord.gg/404gen) for help troubleshooting.
+> For questions or help troubleshooting, join our [Discord server](https://discord.gg/404gen).
