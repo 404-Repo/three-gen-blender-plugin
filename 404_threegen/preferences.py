@@ -16,7 +16,7 @@ class DependencyInstallationOperator(bpy.types.Operator):
 
 class ThreegenPreferences(AddonPreferences):
     bl_idname = __name__.partition(".")[0]
-    url: StringProperty(default="wss://1qshev6dbe7gdz-8888.proxy.runpod.net/ws/generate/")
+    url: StringProperty(default="wss://0akbihcx8cbfk2-8888.proxy.runpod.net/ws/generate/")
     token: StringProperty()
 
     def draw(self, context: Context):
