@@ -1,5 +1,8 @@
 import bpy
+from bpy_extras.io_utils import ImportHelper
 from bpy.types import Context, Operator, Panel
+from bpy.props import StringProperty, BoolProperty, EnumProperty
+import os
 import re
 
 from .client import request_model
@@ -25,6 +28,44 @@ class GenerateOperator(Operator):
         return {"FINISHED"}
 
 
+class ImportOperator(Operator, ImportHelper):
+    """Import 3DGS model from file"""
+
+    bl_idname = "threegen.import"
+    bl_label = "Import"
+    filename_ext = ".ply"
+
+    filter_glob: StringProperty(
+        default="*.ply",
+        options={"HIDDEN"},
+        maxlen=255,  # Max internal buffer length, longer would be clamped.
+    )
+    use_setting: BoolProperty(
+        name="Example Boolean",
+        description="Example Tooltip",
+        default=True,
+    )
+
+    type: EnumProperty(
+        name="Example Enum",
+        description="Choose between two items",
+        items=(
+            ("OPT_A", "First Option", "Description one"),
+            ("OPT_B", "Second Option", "Description two"),
+        ),
+        default="OPT_A",
+    )
+
+    def execute(self, context):
+        base_name = os.path.basename(self.filepath)
+        name, _ = os.path.splitext(base_name)
+        name = re.sub(r"\s+", "_", name)
+        import_gs(self.filepath, name, "")
+
+        return {"FINISHED"}
+        # return read_some_data(context, self.filepath, self.use_setting)
+
+
 class MainPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -39,6 +80,8 @@ class MainPanel(Panel):
         row.prop(threegen, "prompt", text="Prompt")
         row = layout.row()
         row.operator(GenerateOperator.bl_idname)
+        row = layout.row()
+        row.operator(ImportOperator.bl_idname)
 
 
 class DisplaySettingsPanel(Panel):
@@ -95,6 +138,7 @@ class ConversionPanel(Panel):
 
 classes = (
     GenerateOperator,
+    ImportOperator,
     MainPanel,
     DisplaySettingsPanel,
     ConversionPanel,
