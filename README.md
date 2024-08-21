@@ -7,28 +7,37 @@
 
 ## About
 - This repository is specifically for the Blender add-on and does not include the 404-GEN Discord bot or web front-end.  
-- With this add-on, users can enter a text prompt to generate **3D Gaussian Splatting** then apply the geometry nodes modifier to convert to **mesh**.
+- With this add-on, users can:
+  - Enter text prompts to generate **3D Gaussian Splats**
+  - Import .ply files
+  - Convert .ply to **mesh**
 > [!IMPORTANT]
-> Access is currently limited to those who have been provided with a custom API key. 
+> Text-to-3D generation requires an API key, but import and conversion do not
 
 ## Installation
 ### Software requirements
 Blender 4.0+  
 ### Instructions
-1. Download the ZIP file of the most recent release and **_do not unzip_**  
+1. Download the ZIP file of the most recent release and **_do not unzip_**
+   
+  <img width="480" alt="release" src="https://github.com/user-attachments/assets/e91a8530-43bb-49bd-bffe-a2540f038c25">
+
+  <img width="480" alt="download" src="https://github.com/user-attachments/assets/0373bedd-578a-4b46-903f-9e88a4918d57">
 
 2. In Blender, Edit ➡️ Preferences ➡️ Add-ons ➡️ Install ➡️ Select the add-on ZIP file
+   
+  <img width="480" alt="install" src="https://github.com/user-attachments/assets/cf4710b1-4660-4c77-ae1c-be21ac23e515">
 
 > [!NOTE]
 > If you have a previous version of this add-on enabled, you will need to disable it and restart Blender before installing the new version
 
 3. Check the box to enable the add-on and paste your API key in the token field.
-
-<img width="400" alt="addon-enable" src="https://github.com/user-attachments/assets/1da2428a-bab4-42d8-991d-1561a253fe55">
+<img width="480" alt="addon-enable" src="https://github.com/user-attachments/assets/1da2428a-bab4-42d8-991d-1561a253fe55">
 
 🌟 404 tab should now appear in the sidebar 🌟
 
-<img width="400" alt="addon-sidebar" src="https://github.com/user-attachments/assets/277bddc3-be9f-46e4-bb61-905af31ffef1">
+<img width="480" alt="tool" src="https://github.com/user-attachments/assets/39a8f968-526d-4ac9-9b24-9a52fc7a9a0f">
+
 
 ## Usage
 ### Generating
@@ -38,14 +47,16 @@ Blender 4.0+
 >- For best results, describe a single object/element for each generation, rather than an entire scene or room at once.
 >- To view the material in object or edit mode, open the Shading Menu (shortcut z) and select Material Preview (shortcut 2).
 
-2. Adjust display settings *(optional)*
+2. Adjust display settings *(optional)*\
 After the splat is generated, the Display Settings dropdown will appear. Gaussian Splats are often rendered with some zero or low opacity points. Increasing the opacity threshold will filter out any points beneath the set threshold.
-<img width="400" alt="addon-settings" src="https://github.com/user-attachments/assets/37307d7e-81d9-40d9-b85e-d3fc92cd7f40">
+<img width="480" alt="display" src="https://github.com/user-attachments/assets/d65ae186-25b8-47f0-9d0d-7b3357f7e09e">
 
-3. Convert to mesh *(optional)*
-The Mesh Conversion dropdown is located beneath the Display Settings dropdown. Smaller voxel size will result in a more detailed mesh, while larger voxel size will result in a lower poly count.\
-Regardless of voxel size, there will be a loss of quality when converting to mesh. The visual detail produced by Gaussian Splatting is a result of layered points of varying opacity. By converting to mesh, this depth is lost as material can only be displayed on faces.
-<img width="400" alt="meshconversion" src="https://github.com/user-attachments/assets/19e5bd60-d205-4fb5-aff0-4531395b0c9f">
+
+3. Convert to mesh *(optional)*\
+There are two ways to convert to mesh.
+  - **Low Poly**: Check the **convert** box located beneath the Display Settings dropdown. Smaller voxel size will result in a more detailed mesh, while larger voxel size will result in a lower poly count. The modifier must be applied to complete the mesh conversion\
+  - **High Poly**: Apply the geometry nodes modifier **without** checking the convert box.
+<img width="480" alt="mesh" src="https://github.com/user-attachments/assets/7c00756b-3b63-4dd7-b0ff-aa3bc03459af">
 
 
 > [!NOTE]
