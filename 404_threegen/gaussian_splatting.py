@@ -110,7 +110,7 @@ def import_gs(filepath: str, name: str, winner_hotkey: str = ""):
     logscale_attr = mesh.attributes.new(name="logscale", type="FLOAT_VECTOR", domain="POINT")
     logscale_attr.data.foreach_set("vector", log_scales.flatten())
 
-    color_attr = mesh.attributes.new(name="color", type="FLOAT_VECTOR", domain="POINT")
+    color_attr = mesh.attributes.new(name="diffuse_color", type="FLOAT_VECTOR", domain="POINT")
     color_attr.data.foreach_set("vector", color.flatten())
 
     rot_quatxyz_attr = mesh.attributes.new(name="quatxyz", type="FLOAT_VECTOR", domain="POINT")
