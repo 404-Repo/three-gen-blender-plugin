@@ -1,0 +1,21 @@
+schema_version = "1.0.0"
+
+id = "fourofour_3d_gen"
+version = "0.6.0"
+name = "404 3D Generator"
+tagline = "404 3D Generator Extension"
+maintainer = "Ruben Hohndorf <ruben@atlas.design>"
+type = "add-on"
+
+# Optional link to documentation, support, source files, etc
+website = "https://github.com/404-Repo/three-gen-blender-plugin"
+tags = ["3D View"]
+blender_version_min = "4.2.0"
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+[permissions]
+network = "Access model generation API"
+files = "Load PLY file from disk"
+

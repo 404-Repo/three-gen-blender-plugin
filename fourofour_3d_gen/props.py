@@ -3,6 +3,9 @@ import bpy
 
 class WindowManagerProps(bpy.types.PropertyGroup):
     prompt: bpy.props.StringProperty()
+    n_generations: bpy.props.IntProperty(min=1, max=10, default=1)
+    progress: bpy.props.FloatProperty(min=0.0, max=1.0, default=0.0)
+    in_progress: bpy.props.BoolProperty(default=False)
 
 
 classes = (WindowManagerProps,)

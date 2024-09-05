@@ -1,18 +1,5 @@
-import bpy
 from . import dependencies
 from . import preferences
-
-
-bl_info = {
-    "name": "404 Three Gen",
-    "description": "AI generated 3d Gaussian splatting",
-    "location": "View3D > Toolshelf > GScatter",
-    "author": "404",
-    "version": (0, 5, 0),
-    "blender": (4, 0, 0),
-    "support": "COMMUNITY",
-    "category": "Object",
-}
 
 modules = []
 
@@ -21,10 +8,12 @@ def register():
     preferences.register()
     modules.append(preferences)
     if dependencies.installed():
-        from . import props, ui
+        from . import props, ui, ops
 
         ui.register()
         props.register()
+        ops.register()
+        modules.append(ops)
         modules.append(ui)
         modules.append(props)
 

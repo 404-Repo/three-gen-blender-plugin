@@ -6,6 +6,7 @@ DEPENDENCIES = (
     "numpy",
     "pydantic",
     "websocket-client",
+    "mixpanel",
 )
 
 
@@ -14,6 +15,7 @@ def installed() -> bool:
         import numpy
         import pydantic
         import websocket
+        import mixpanel
 
         return True
     except:

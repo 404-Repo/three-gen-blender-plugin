@@ -9,8 +9,8 @@ from .protocol import Auth, PromptData, TaskStatus, TaskUpdate
 
 
 def request_model(prompt: str) -> tuple[None, None] | tuple[str, str]:
-    url = bpy.context.preferences.addons[__name__.partition(".")[0]].preferences.url
-    api_key = bpy.context.preferences.addons[__name__.partition(".")[0]].preferences.token
+    url = bpy.context.preferences.addons[__package__].preferences.url
+    api_key = bpy.context.preferences.addons[__package__].preferences.token
     filepath = None
     winner_hotkey = None
 
