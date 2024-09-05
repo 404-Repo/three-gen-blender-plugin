@@ -1,22 +1,20 @@
-# 404-GEN BLENDER ADD-ON
+# 404—GEN BLENDER ADD-ON
 [![Discord](https://img.shields.io/discord/1065924238550237194?logo=discord&logoColor=%23FFFFFF&logoSize=auto&label=Discord&labelColor=%235865F2)](https://discord.gg/404gen)
 [![Create Release](https://github.com/404-Repo/three-gen-blender-plugin/actions/workflows/create-release.yml/badge.svg)](https://github.com/404-Repo/three-gen-blender-plugin/actions/workflows/create-release.yml)
 
-*404-GEN leverages decentralized AI to transform your words into detailed 3D models, bringing your ideas to life in just a few seconds*  
+*404—GEN leverages decentralized AI to transform your words into detailed 3D models, bringing your ideas to life in just a few seconds*  
 [Project Repo](https://github.com/404-Repo/three-gen-subnet) | [Website](https://404.xyz/) | [X](https://x.com/404gen_)
 
 ## About
-- This repository is specifically for the Blender add-on and does not include the 404-GEN Discord bot or web front-end.  
+- This repository is specifically for the Blender add-on and does not include the 404—GEN Discord bot or web front-end.  
 - With this add-on, users can:
   - Enter text prompts to generate **3D Gaussian Splats**
   - Import .ply files
   - Convert .ply to **mesh**
-> [!IMPORTANT]
-> Text-to-3D generation requires an API key, but import and conversion do not
 
 ## Installation
 ### Software requirements
-Blender 4.0+  
+Blender 4.2+  
 ### Instructions
 1. Download the ZIP file of the most recent release and **_do not unzip_**
    
@@ -29,14 +27,18 @@ Blender 4.0+
   <img width="480" alt="install" src="https://github.com/user-attachments/assets/cf4710b1-4660-4c77-ae1c-be21ac23e515">
 
 > [!NOTE]
-> If you have a previous version of this add-on enabled, you will need to disable it and restart Blender before installing the new version
+> If you have a previous version of this add-on enabled, you will need to uninstall it and restart Blender before installing the new version. You may also need to restart Blender after installing the new version.
 
-3. Check the box to enable the add-on and paste your API key in the token field.
-<img width="480" alt="addon-enable" src="https://github.com/user-attachments/assets/1da2428a-bab4-42d8-991d-1561a253fe55">
+3. Check the box to enable the add-on, then click Install Dependencies and accept the anonymous usage data notice (you may opt out after reading the notice).
+<img width="480" alt="addon-enable" src="https://github.com/user-attachments/assets/92145edb-012e-4279-b0e6-bbc401af346f">
+
+> [!IMPORTANT]
+> Do not change the URL or API key
+
 
 🌟 404 tab should now appear in the sidebar 🌟
 
-<img width="480" alt="tool" src="https://github.com/user-attachments/assets/39a8f968-526d-4ac9-9b24-9a52fc7a9a0f">
+<img width="480" alt="404-UI" src="https://github.com/user-attachments/assets/72ac61fb-d0ae-4cef-9434-5ae760760c52">
 
 
 ## Usage
