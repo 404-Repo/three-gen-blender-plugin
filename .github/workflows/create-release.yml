@@ -22,7 +22,7 @@ jobs:
 
       - name: Zip subfolder
         run: |
-          subfolder="./404_threegen"  # Adjust to your subfolder
+          subfolder="./fourofour_3d_gen"
           tag="${{ steps.vars.outputs.tag }}"
           zip_name="${subfolder##*/}-${tag}.zip"
           echo "ZIP_NAME=$zip_name" >> $GITHUB_ENV
