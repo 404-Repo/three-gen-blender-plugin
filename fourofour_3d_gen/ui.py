@@ -1,9 +1,7 @@
 import bpy
 from bpy.types import Context, Panel
 
-from .ops import ConsentOperator, GenerateOperator, ImportOperator
-from . import constants as const
-from . import utils
+from .ops import GenerateOperator, ImportOperator
 
 
 class MainPanel(Panel):

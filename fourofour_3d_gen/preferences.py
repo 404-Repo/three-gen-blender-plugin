@@ -1,11 +1,11 @@
 from bpy.types import AddonPreferences, Context, UILayout
 from bpy.props import StringProperty, BoolProperty
 import bpy
+import uuid
 
 from . import dependencies
 from . import constants as const
 from . import utils
-from .ops import ConsentOperator
 
 
 class DependencyInstallationOperator(bpy.types.Operator):
@@ -14,6 +14,21 @@ class DependencyInstallationOperator(bpy.types.Operator):
 
     def execute(self, context: Context):
         dependencies.install()
+        return {"FINISHED"}
+
+
+class ConsentOperator(bpy.types.Operator):
+    """Accept Data Collection"""
+
+    bl_label = "Accept"
+    bl_idname = "threegen.consent"
+
+    def execute(self, context: bpy.types.Context) -> set:
+        prefs = bpy.context.preferences.addons[__package__].preferences
+        prefs.data_collection_notice = True
+        if not prefs.uid:
+            prefs.uid = str(uuid.uuid4())
+        bpy.ops.wm.save_userpref()
         return {"FINISHED"}
 
 
@@ -46,6 +61,7 @@ class ThreegenPreferences(AddonPreferences):
 
 classes = (
     DependencyInstallationOperator,
+    ConsentOperator,
     ThreegenPreferences,
 )
 

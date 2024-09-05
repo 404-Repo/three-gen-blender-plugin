@@ -4,7 +4,6 @@ from bpy.types import Context, Operator, Event
 from bpy.props import StringProperty, BoolProperty, EnumProperty
 import os
 import re
-import uuid
 
 from .client import request_model
 from .gaussian_splatting import import_gs
@@ -90,26 +89,9 @@ class ImportOperator(Operator, ImportHelper):
         return {"FINISHED"}
 
 
-class ConsentOperator(Operator):
-    """Accept Data Collection"""
-
-    bl_label = "Accept"
-    bl_idname = "threegen.consent"
-
-    def execute(self, context: bpy.types.Context) -> set:
-        prefs = bpy.context.preferences.addons[__package__].preferences
-        prefs.data_collection_notice = True
-        if not prefs.uid:
-            prefs.uid = str(uuid.uuid4())
-            track("New User")
-        bpy.ops.wm.save_userpref()
-        return {"FINISHED"}
-
-
 classes = (
     GenerateOperator,
     ImportOperator,
-    ConsentOperator,
 )
 
 
