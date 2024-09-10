@@ -36,7 +36,7 @@ After joining the server, you will see several channels listed in the left sideb
 * `#🧪|404-gen`: The bot channel
 * `#❓|help-forum`: Support and assistance
 
-## Private Message or Your Server
+## Add to Your Server
 
 ### 1. Add the App
 
@@ -58,10 +58,10 @@ Choose Try it Now to add the bot to your Authorized Apps or Add to Server to add
 
 The bot needs your permission to create commands.
 
-You should now see the 404—GEN Bot in your server or Authorized Apps.
+You should now see the 404—GEN Bot in your Authorized Apps or Server Integrations.
 
 ### 4. Use the `/generate` command
 
-After you type /generate into a Discord channel with the bot and a `prompt` box will appear. Type your prompt into the box and send the message.
+After you type /generate into a Discord server with the bot and a `prompt` box will appear. Type your prompt into the box and send the message.
 
 The bot will return a .PLY file and .gif preview of the 3D file
