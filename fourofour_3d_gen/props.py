@@ -105,7 +105,10 @@ class JobManager(bpy.types.PropertyGroup):
 
         try:
             if threegen.replace_active_obj:
-                job.replace_obj = bpy.context.object
+                active_obj = bpy.context.object
+                if active_obj is None:
+                    raise ValueError("No active object to replace")
+                job.replace_obj = active_obj
                 if threegen.include_placeholder_dims:
                     dims = job.replace_obj.dimensions
                     job.prompt = f"{job.prompt}, {int(dims.x * 100)}cm wide, {int(dims.y * 100)}cm deep and {int(dims.z * 100)}cm high"

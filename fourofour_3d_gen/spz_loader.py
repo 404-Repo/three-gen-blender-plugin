@@ -122,7 +122,7 @@ class SPZLoader:
 
         if res != 0:
             try:
-                if out_ptr and bool(out_ptr.value):
+                if bool(out_ptr):
                     self._lib.free_buffer_spz(out_ptr)
             except Exception:
                 pass
