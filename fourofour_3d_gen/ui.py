@@ -68,7 +68,7 @@ class THREEGEN_PT_MainPanel(Panel):
         row.prop(threegen, "replace_active_obj", text="Replace active object")
         row = layout.row()
         row.prop(threegen, "include_placeholder_dims", text="Include placeholder size")
-        if not threegen.replace_active_obj:
+        if not threegen.replace_active_obj or context.object is None:
             row.enabled = False  
         row = layout.row()
         row.operator(ops.GenerateOperator.bl_idname)
@@ -144,4 +144,3 @@ classes = (
 )
 
 register, unregister = bpy.utils.register_classes_factory(classes)
-

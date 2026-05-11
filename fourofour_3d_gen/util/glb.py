@@ -2,6 +2,12 @@ import bpy
 import os
 import tempfile
 
+
+def _remove_objects(objects):
+    for obj in objects:
+        bpy.data.objects.remove(obj, do_unlink=True)
+
+
 def import_glb(
     glb_bytes: bytes,
     name: str,
@@ -27,26 +33,29 @@ def import_glb(
     before = set(bpy.data.objects)
 
     # --- Import ---
-    bpy.ops.import_scene.gltf(filepath=tmp_path)
-
-    # Cleanup temp file ASAP
-    os.remove(tmp_path)
+    try:
+        bpy.ops.import_scene.gltf(filepath=tmp_path)
+    except Exception:
+        _remove_objects(obj for obj in bpy.data.objects if obj not in before)
+        raise
+    finally:
+        try:
+            os.remove(tmp_path)
+        except OSError:
+            pass
 
     # --- Find newly imported objects ---
     imported = [obj for obj in bpy.data.objects if obj not in before]
     meshes = [obj for obj in imported if obj.type == 'MESH']
 
     if len(meshes) != 1:
-        for obj in imported:
-            bpy.data.objects.remove(obj)
+        _remove_objects(imported)
         raise RuntimeError(f"Expected exactly 1 mesh, found {len(meshes)}")
 
     mesh_obj = meshes[0]
 
     # --- Remove everything else ---
-    for obj in imported:
-        if obj != mesh_obj:
-            bpy.data.objects.remove(obj)
+    _remove_objects(obj for obj in imported if obj != mesh_obj)
 
     # Detach from any parent (scene root)
     mesh_obj.parent = None

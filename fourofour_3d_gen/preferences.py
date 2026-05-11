@@ -4,8 +4,12 @@ import bpy
 
 class ThreegenPreferences(AddonPreferences):
     bl_idname = __package__
-    url: StringProperty(default="https://gateway-us-west.404.xyz")
-    token: StringProperty(default="6eca4068-3be6-4d30-b828-f63cda3bc35b")
+    url: StringProperty(name="URL", default="https://api.dns.404.xyz/")
+    token: StringProperty(
+        name="API Key",
+        default="6eca4068-3be6-4d30-b828-f63cda3bc35b",
+        subtype="PASSWORD",
+    )
 
     def draw(self, context: Context):
         layout: UILayout = self.layout
@@ -18,4 +22,3 @@ classes = (
 )
 
 register, unregister = bpy.utils.register_classes_factory(classes)
-

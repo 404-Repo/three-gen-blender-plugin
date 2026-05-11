@@ -8,6 +8,7 @@ class GatewayTaskStatus(Enum):
     """Status of the task in gateway"""
 
     NO_RESULT = "NoResult"
+    IN_PROGRESS = "InProgress"
     FAILURE = "Failure"
     PARTIAL_RESULT = "PartialResult"
     SUCCESS = "Success"
@@ -21,9 +22,9 @@ class GatewayTaskStatusResponse(BaseModel):
 
     @field_validator("status", mode="before")
     @classmethod
-    def _normalize_partial_result(cls, value):
+    def _normalize_status(cls, value):
         if isinstance(value, str):
-            if value == GatewayTaskStatus.PARTIAL_RESULT.value:
+            if value in {status.value for status in GatewayTaskStatus}:
                 return value
             if re.fullmatch(r"PartialResult\(\d+\)", value):
                 return GatewayTaskStatus.PARTIAL_RESULT.value

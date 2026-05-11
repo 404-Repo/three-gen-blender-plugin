@@ -69,7 +69,7 @@ class SPZUpdater:
 
     @classmethod
     def _get_latest_version_info(cls) -> SPZVersionResponse:
-        response = requests.get(cls._REPOSITORY_URL)
+        response = requests.get(cls._REPOSITORY_URL, timeout=10)
         response.raise_for_status()
         data = SPZVersionResponse.model_validate_json(response.text)
         return data

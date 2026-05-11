@@ -18,6 +18,10 @@ class GenerateOperator(Operator):
         if not threegen.image and not threegen.prompt:
             return {"CANCELLED"}
 
+        if threegen.replace_active_obj and context.object is None:
+            self.report({"ERROR"}, "No active object to replace.")
+            return {"CANCELLED"}
+
         threegen.job_manager.add_job()
         return {"FINISHED"}
         
@@ -135,4 +139,3 @@ classes = (
 )
 
 register, unregister = bpy.utils.register_classes_factory(classes)
-

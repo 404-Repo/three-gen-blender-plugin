@@ -129,13 +129,24 @@ class GatewayApi:
 _gateway_instance = None
 
 
+def _get_addon_name() -> str:
+    package = __package__ or __name__
+    package_parts = package.split(".")
+    if package.startswith("bl_ext.") and len(package_parts) >= 3:
+        return ".".join(package_parts[:3])
+    return package_parts[0]
+
+
 def get_gateway():
     global _gateway_instance
-    prefs = bpy.context.preferences.addons["bl_ext.user_default.fourofour_3d_gen"].preferences
+    addon_name = _get_addon_name()
+    prefs = bpy.context.preferences.addons[addon_name].preferences
+    gateway_url = prefs.url.strip().rstrip("/")
+    gateway_api_key = prefs.token.strip()
     if (
         _gateway_instance is None
-        or _gateway_instance._gateway_url != prefs.url
-        or _gateway_instance._gateway_api_key != prefs.token
+        or _gateway_instance._gateway_url != gateway_url
+        or _gateway_instance._gateway_api_key != gateway_api_key
     ):
-        _gateway_instance = GatewayApi(prefs.url, prefs.token)
+        _gateway_instance = GatewayApi(gateway_url, gateway_api_key)
     return _gateway_instance
